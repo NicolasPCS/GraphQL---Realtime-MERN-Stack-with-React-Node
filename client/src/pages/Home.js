@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import ApolloClient from 'apollo-boost';
 import { gql } from 'apollo-boost';
-import { useQuery } from '@apollo/react-hooks'
+import { useQuery, useLazyQuery } from '@apollo/react-hooks'
 
 const GET_ALL_POSTS = gql`
     {
@@ -14,11 +14,11 @@ const GET_ALL_POSTS = gql`
 `
 
 const Home = () => {
-
     const { data, loading, error } = useQuery(GET_ALL_POSTS)
-
+    const [fetchPosts, { data: posts }] = useLazyQuery(GET_ALL_POSTS)
+    
     if (loading) return <p className="p-5">Loading...</p>
-
+    
     return (
         <div className="container">
         <div className="row p-5">
@@ -34,6 +34,10 @@ const Home = () => {
                 </div>
             </div>
             ))}
+        </div>
+        <div className="row p-5">
+            <hr/>
+            <button onClick={() => fetchPosts()} className="btn-btn-raised btn-primary">Fetch posts</button>
         </div>
         </div>
     );
