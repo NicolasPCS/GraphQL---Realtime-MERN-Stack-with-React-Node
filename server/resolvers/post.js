@@ -7,12 +7,12 @@ const allPosts = () => posts
 
 // Mutation resolver
 const newPost = (parent, args, context) => {
-    console.log(args)
+    // console.log(args)
     // Create a new post onject
     const post = {
         id: posts.length + 1,
-        title: args.title,
-        description: args. description
+        title: args.input.title,
+        description: args.input.description
     }
     // Push new object to posts array
     posts.push(post)
